@@ -4,6 +4,13 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
+import About from "./components/About";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   const [mode,setMode] = useState('light')
@@ -36,12 +43,22 @@ function App() {
   }
   return (
     <>
+    <Router>
       <Navbar title="Word Counter" mode={mode} toggleMode={toggleMode} aboutText="About Us"/>
       <Alert alert={alert}/>
       <div className="container my-4">
-      <TextForm showAlert={showAlert} heading="Enter the text below to analyse" mode={mode}/>
-      {/* <About/> */}
+      <Switch>
+          <Route exact path="/about">
+            <About mode={mode}/>
+          </Route>
+         
+          <Route exact path="/">
+              <TextForm showAlert={showAlert} heading="Word counter,Character counter,remove extra spaces " mode={mode}/>
+           
+          </Route>
+      </Switch>
       </div>
+      </Router>
     </>
   );
 }
